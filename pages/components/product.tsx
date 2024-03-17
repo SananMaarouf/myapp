@@ -1,5 +1,4 @@
 // Import necessary modules and components
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 // Define the Product type
