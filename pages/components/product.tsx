@@ -7,12 +7,12 @@ type Product = {
     name: string;
     image_url: string;
     rating: number;
-    updateProductRatingState: (id: number, rating: number) => void;
+    
     updateProductRating: (id: number, rating: number) => void;
 };
 
 
-export const Product = ({ id, name, image_url, rating, updateProductRatingState, updateProductRating }: Product) => {
+export const Product = ({ id, name, image_url, rating, updateProductRating }: Product) => {
 
     return (
         <div className="w-44 h-62 mx-2 rounded-2xl flex flex-col text-center bg-white shadow-lg p-4 m-4 max-w-8xl px-4 text-black">
@@ -37,8 +37,7 @@ export const Product = ({ id, name, image_url, rating, updateProductRatingState,
                         key={i}
                         onClick={async () => {
                             const newRating = i + 1;
-                            updateProductRatingState(id, newRating);
-                            await updateProductRating(id, newRating);
+                            updateProductRating(id, newRating);
                         }}
                     >
                         <Image

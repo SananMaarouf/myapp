@@ -1,13 +1,9 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Product } from "./components/product";
 import { PrismaClient } from "@prisma/client";
-import axios from "axios";
 
 const prisma = new PrismaClient();
 
-const inter = Inter({ subsets: ["latin"] });
 type Product = {
   id: number;
   name: string;
@@ -24,23 +20,17 @@ export async function getServerSideProps() {
       initialProducts: products,
     },
   };
-}
-
-
-
-  
+}  
 export default function Index({ initialProducts }: { initialProducts: Product[] }) {
   console.log(initialProducts);
 
   const [products, setProducts] = useState(initialProducts);
 
-  const updateProductRatingState = async (id: number, newRating: number) => {
+  const updateProductRating = async (id: number, newRating: number) => {
     setProducts(prevProducts => prevProducts.map(product => 
       product.id === id ? { ...product, rating: newRating } : product
       ));
-  }
 
-  const updateProductRating = async(id: number, newRating: number) =>{
     const response = await fetch(`/api/products`, {
       method: "PATCH",
       body: JSON.stringify({ id: id, rating: newRating }),
@@ -49,7 +39,8 @@ export default function Index({ initialProducts }: { initialProducts: Product[] 
       throw new Error(response.statusText);
     }
     return await response.json();
-}
+  }
+
   return (
     <main className="flex flex-col p-24 bg-attensi">
       <section className="flex flex-col mx-auto">
@@ -61,7 +52,7 @@ export default function Index({ initialProducts }: { initialProducts: Product[] 
             <h2 className="text-3xl font-bold text-gray-800">Category title</h2>
             <section className="flex flex-row flex-wrap">
               {products.map(product =>
-                <Product image_url={`/assets/${product.image}`} key={product.id} {...product} updateProductRating={updateProductRating} updateProductRatingState={updateProductRatingState} />
+                <Product image_url={`/assets/${product.image}`} key={product.id} {...product} updateProductRating={updateProductRating}  />
               )}
             </section>
           </section>
@@ -69,7 +60,7 @@ export default function Index({ initialProducts }: { initialProducts: Product[] 
             <h2 className="text-3xl font-bold text-gray-800">Category title</h2>
             <section className="flex flex-row flex-wrap">
               {products.map(product =>
-                <Product image_url={`/assets/${product.image}`} key={product.id} {...product} updateProductRating={updateProductRating} updateProductRatingState={updateProductRatingState} />
+                <Product image_url={`/assets/${product.image}`} key={product.id} {...product} updateProductRating={updateProductRating} />
               )}
             </section>
           </section>
