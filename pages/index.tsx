@@ -1,6 +1,6 @@
 // Import necessary modules and components
 import { useState } from "react";
-import { Product } from "./components/product";
+import { Product } from "../components/product";
 import { PrismaClient } from "@prisma/client";
 
 // Initialize Prisma Client
